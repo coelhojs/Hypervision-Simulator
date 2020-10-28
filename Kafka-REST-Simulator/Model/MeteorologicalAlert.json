@@ -1,0 +1,84 @@
+{
+  "records": [
+    {
+      "value": {
+        "Id": "",
+        "Nivel": "",
+        "Data": "",
+        "DataInicio": "",
+        "DataFim": "",
+        "Regioes": "",
+        "Municipios": "",
+        "Subestacoes": "",
+        "Linhas": "",
+        "Poligono": "",
+        "TagAlterado": "",
+        "TagEnviado": "",
+        "NumMatricula": "",
+        "TagAlteradoNivel": "",
+        "TagAlteradoHorario": ""
+      }
+    }
+  ],
+  "value_schema": {
+    "title": "MeteorologicalAlert_v1",
+    "description": "Schema de dados brutos de alertas meteorologicos",
+    "type": "object",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Identificador do alerta"
+      },
+      "Nivel": {
+        "type": "string",
+        "description": "Valores disponiveis: R01, R02, R03."
+      },
+      "Data": {
+        "type": "string",
+        "description": "Data e hora no formato ISO UTC"
+      },
+      "DataInicio": {
+        "type": "string",
+        "description": "Data e hora no formato ISO UTC"
+      },
+      "DataFim": {
+        "type": "string",
+        "description": "Data e hora no formato ISO UTC"
+      },
+      "Regioes": {
+        "type": "string",
+        "description": "Areas de atuacao"
+      },
+      "Municipios": {
+        "type": "string"
+      },
+      "Subestacoes": {
+        "description": "Subestacoes envolvidas.",
+        "type": "string"
+      },
+      "Linhas": {
+        "type": "string",
+        "description": "Linhas envolvidas."
+      },
+      "Poligono": {
+        "type": "string",
+        "description": "Array de coordenadas UTM"
+      },
+      "TagAlterado": {
+        "type": "string"
+      },
+      "TagEnviado": {
+        "type": "string"
+      },
+      "NumMatricula": {
+        "type": "string"
+      },
+      "TagAlteradoNivel": {
+        "type": "string"
+      },
+      "TagAlteradoHorario": {
+        "type": "string"
+      }
+    }
+  }
+}
