@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using System;
 using System.Text;
 
 namespace Simulator
@@ -21,7 +22,7 @@ namespace Simulator
             _httpClient.Encoding = Encoding.UTF8;
         }
 
-        public string SendMessage(string message)
+        public void SendMessage(string message)
         {
             var request = new RestRequest();
 
@@ -30,12 +31,18 @@ namespace Simulator
             request.AddHeader("Accept", "application/vnd.kafka.v2+json");
             request.AddHeader("Content-Type", "application/vnd.kafka.jsonschema.v2+json");
 
-
             request.AddJsonBody(message);
 
             var response = _httpClient.Execute(request);
 
-            return response.Content.ToString();
+            if (response.IsSuccessful)
+            {
+                Console.WriteLine("Mensagem enviada com sucesso - Tópico: " + Topic);
+            }
+            else
+            {
+                Console.WriteLine("Erro no envio da mensagem - Tópico: " + Topic + "Erro: " + response.ErrorMessage);
+            }
         }
 
         //public async Task<string> GetLatestOffset(string topic, string partitionId = "0")

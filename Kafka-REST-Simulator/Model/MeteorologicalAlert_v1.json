@@ -49,22 +49,27 @@
       },
       "Regioes": {
         "type": "string",
-        "description": "Areas de atuacao"
+        "description": "Areas de atuacao",
+        "default": ""
       },
       "Municipios": {
-        "type": "string"
+        "type": "string",
+        "default": ""
       },
       "Subestacoes": {
         "description": "Subestacoes envolvidas.",
-        "type": "string"
+        "type": "string",
+        "default": ""
       },
       "Linhas": {
         "type": "string",
-        "description": "Linhas envolvidas."
+        "description": "Linhas envolvidas.",
+        "default": ""
       },
       "Poligono": {
         "type": "string",
-        "description": "Array de coordenadas UTM"
+        "description": "Array de coordenadas UTM",
+        "default": ""
       },
       "TagAlterado": {
         "type": "string"

@@ -53,32 +53,35 @@ namespace KafkaRESTSimulator
                 Console.WriteLine("2-Meteorological-Alerts\n");
                 Console.WriteLine("3-Fire-Alerts\n");
                 var option = Convert.ToInt32(Console.ReadLine());
-                
+
                 Console.WriteLine("Digite a quantidade de mensagens a serem geradas\n");
                 var iterations = Convert.ToInt32(Console.ReadLine());
-                
+
                 Console.WriteLine("Digite o intervalo em segundos entre o envio de mensagens:\n");
                 var interval = Convert.ToInt32(Console.ReadLine()) * 1000;
-                
+
                 var FireAlertPublisher = new Publisher(RESTProxyIP, RESTProxyPort, "Fire-Alerts");
                 var MeteorologicalAlertPublisher = new Publisher(RESTProxyIP, RESTProxyPort, "Meteorological-Alerts");
 
                 for (int i = 0; i < iterations; i++)
                 {
+                    var fireAlert = new FireAlert().Json;
+                    var meteorologicalAlert = new MeteorologicalAlert().Json;
+
                     switch (option)
                     {
                         case 1:
-                            var fireAlert = new MeteorologicalAlert().Json;
-                            var meteorologicalAlert = new MeteorologicalAlert().Json;
-
+                            FireAlertPublisher.SendMessage(fireAlert);
                             MeteorologicalAlertPublisher.SendMessage(meteorologicalAlert);
 
                             break;
                         case 2:
-                            //await new MeteorologicalDataPublisher(KafkaServer, SchemaRegistryUrl).ExecuteAsync(iterations);
+                            MeteorologicalAlertPublisher.SendMessage(meteorologicalAlert);
+
                             break;
                         case 3:
-                            //await new FireDataPublisher(KafkaServer, SchemaRegistryUrl).ExecuteAsync(iterations);
+                            FireAlertPublisher.SendMessage(fireAlert);
+
                             break;
                     }
 

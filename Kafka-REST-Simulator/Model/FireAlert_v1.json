@@ -1,0 +1,105 @@
+{
+  "records": [
+    {
+      //"key": "",
+      "value": {
+        "Id": "",
+        "Nivel": "",
+        "CodigoSAP": "",
+        "DataHora": "",
+        "Regioes": "",
+        "Municipios": "",
+        "Subestacoes": "",
+        "Linhas": "",
+        "Estrutura": "",
+        "Natureza": "",
+        "ReligamentoEspecial": "",
+        "NivelTensao": "",
+        "Longitude": "",
+        "Latitude": "",
+        "VZonal": "",
+        "VMeridional": "",
+        "Raio": "",
+        "Cobertura": ""
+      }
+    }
+  ],
+  //"key_schema": "",
+  "value_schema": {
+    "name": "FireAlert_v1",
+    "description": "Schema de dados brutos de alertas de queimadas",
+    "type": "object",
+    "properties": {
+      "Id": {
+        "type": "string",
+        "description": "Identificador do alerta"
+      },
+      "Nivel": {
+        "type": "string",
+        "description": "Valores disponiveis: Vermelho, Laranja, Amarelo e Verde."
+      },
+      "CodigoSAP": {
+        "type": "string"
+      },
+      "DataHora": {
+        "type": "string",
+        "description": "Data e hora no formato ISO UTC"
+      },
+      "Regioes": {
+        "type": "string",
+        "description": "Areas de atuacao",
+        "default": ""
+      },
+      "Municipios": {
+        "type": "string",
+        "default": ""
+      },
+      "Subestacoes": {
+        "type": "string",
+        "description": "Subestacoes envolvidas",
+        "default": ""
+      },
+      "Linhas": {
+        "type": "string",
+        "default": ""
+      },
+      "Estrutura": {
+        "type": "string",
+        "default": ""
+      },
+      "Natureza": {
+        "type": "string"
+      },
+      "ReligamentoEspecial": {
+        "type": "string"
+      },
+      "NivelTensao": {
+        "type": "string"
+      },
+      "Longitude": {
+        "type": "string",
+        "default": ""
+      },
+      "Latitude": {
+        "type": "string",
+        "default": ""
+      },
+      "VZonal": {
+        "type": "string",
+        "default": ""
+      },
+      "VMeridional": {
+        "type": "string",
+        "default": ""
+      },
+      "Raio": {
+        "type": "string",
+        "default": ""
+      },
+      "Cobertura": {
+        "type": "string",
+        "default": ""
+      }
+    }
+  }
+}
