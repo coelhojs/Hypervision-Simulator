@@ -1,6 +1,7 @@
 {
   "records": [
     {
+      //"key": "",
       "value": {
         "Id": "",
         "Nivel": "",
@@ -20,6 +21,7 @@
       }
     }
   ],
+  //"key_schema": "",
   "value_schema": {
     "title": "MeteorologicalAlert_v1",
     "description": "Schema de dados brutos de alertas meteorologicos",

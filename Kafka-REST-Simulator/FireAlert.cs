@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Simulator
 {
-    public class MeteorologicalAlert
+    public class FireAlert
     {
         public string Json;
 
@@ -20,25 +20,19 @@ namespace Simulator
         private string[] Registration = new string[] { "c057595", "c057614", "c057693" };
 
 
-        public MeteorologicalAlert()
+        public FireAlert()
         {
-            var json = ReadAsJson("Model/MeteorologicalAlert.json");
+            var json = ReadAsJson("Model/FireAlert.json");
 
-            //json["key_schema"] = json["key_schema"].ToString();
+            //json["value_schema"] = FireAlert_v1._SCHEMA.ToString();
             json["value_schema"] = json["value_schema"].ToString();
-            //json["value_schema"] = MeteorologicalAlert_v1._SCHEMA.ToString();
-
-            var alertId = DateTime.Now.Ticks.ToString();
 
             //A chuva pode iniciar entre 30 minutos a 24 horas
             var weatherPrediction = DateTime.Now.AddMinutes(new Random().Next(30, 1440));
 
             var value = (JObject)json["records"][0]["value"];
 
-            //Setando key da mensagem:
-            //json["records"][0]["key"] = alertId;
-
-            value["Id"] = alertId;
+            value["Id"] = DateTime.Now.Ticks.ToString();
             value["Nivel"] = Levels[new Random().Next(Levels.Length - 1)];
             value["Data"] = DateTime.Now.ToString();
             value["DataInicio"] = (weatherPrediction).ToString();
