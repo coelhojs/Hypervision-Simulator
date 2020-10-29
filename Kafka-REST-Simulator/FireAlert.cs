@@ -37,7 +37,7 @@ namespace Simulator
 
             value["Id"] = DateTime.Now.Ticks.ToString();
             value["Nivel"] = Niveis[new Random().Next(Niveis.Length - 1)];
-            value["DataHora"] = (DateTime.Now).ToString();
+            value["DataHora"] = DateTime.Now.ToUniversalTime().ToString("o");
             value["Regioes"] = string.Join(',', Regioes.OrderBy(x => new Random().Next()).Take(new Random().Next(Regioes.Length - 1)).ToArray());
             value["Municipios"] = string.Join(',', Municipios.OrderBy(x => new Random().Next()).Take(new Random().Next(Municipios.Length - 1)).ToArray());
             value["Subestacoes"] = string.Join(',', Subestacoes.OrderBy(x => new Random().Next()).Take(new Random().Next(Subestacoes.Length - 1)).ToArray());

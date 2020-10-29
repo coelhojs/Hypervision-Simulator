@@ -40,10 +40,10 @@ namespace Simulator
 
             value["Id"] = alertId;
             value["Nivel"] = Niveis[new Random().Next(Niveis.Length - 1)];
-            value["Data"] = DateTime.Now.ToString();
-            value["DataInicio"] = (weatherPrediction).ToString();
+            value["Data"] = DateTime.Now.ToUniversalTime().ToString("o");
+            value["DataInicio"] = (weatherPrediction).ToUniversalTime().ToString("o");
             //A chuva pode ter duração de 30 minutos ou 4 horas
-            value["DataFim"] = (weatherPrediction.AddMinutes(new Random().Next(30, 240))).ToString();
+            value["DataFim"] = (weatherPrediction.AddMinutes(new Random().Next(30, 240))).ToUniversalTime().ToString("o");
             value["Regioes"] = string.Join(',', Regioes.OrderBy(x => new Random().Next()).ToArray().Take(new Random().Next(Regioes.Length - 1)).ToArray());
             value["Municipios"] = string.Join(',', Municipios.OrderBy(x => new Random().Next()).ToArray().Take(new Random().Next(Municipios.Length - 1)).ToArray());
             value["Subestacoes"] = string.Join(',', Subestacoes.OrderBy(x => new Random().Next()).ToArray().Take(new Random().Next(Subestacoes.Length - 1)).ToArray());
