@@ -2,9 +2,9 @@
 using System;
 using System.Text;
 
-namespace Simulator
+namespace Simulator.REST
 {
-    public class Publisher
+    public class RestPublisher
     {
         private RestClient _httpClient;
 
@@ -12,7 +12,7 @@ namespace Simulator
         public string Port;
         public string Topic;
 
-        public Publisher(string ip, string port, string topic)
+        public RestPublisher(string ip, string port, string topic)
         {
             IP = ip;
             Port = port;

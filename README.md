@@ -1,1 +1,1 @@
-# Kafka-REST-Simulator
+# Hypervision-Simulator

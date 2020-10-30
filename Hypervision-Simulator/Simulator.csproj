@@ -34,6 +34,14 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\commons-core\Commons-Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Publishers\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>
