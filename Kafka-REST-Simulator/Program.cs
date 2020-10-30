@@ -47,7 +47,7 @@ namespace KafkaRESTSimulator
                                 Iterations = Convert.ToInt32(args[i + 1]);
                                 break;
                             case "--seconds":
-                                Interval = Convert.ToInt32(args[i + 1]);
+                                Interval = Convert.ToInt32(args[i + 1]) * 1000;
                                 break;
                         }
                     }
