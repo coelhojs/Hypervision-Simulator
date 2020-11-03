@@ -1,5 +1,4 @@
 ﻿using Commons_Core.Helpers.Kafka;
-using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using Simulator;
@@ -14,7 +13,7 @@ namespace KafkaRESTSimulator
     public class Program
     {
         private static string KafkaServer = "192.168.2.93:9092";
-        private static string Interface = "REST";
+        private static string Interface = "NATIVE";
         private static string SchemaRegistryUrl = "192.168.2.93:8081";
         private static int Interval;
         private static int Iterations;
@@ -62,7 +61,7 @@ namespace KafkaRESTSimulator
                                 Interval = Convert.ToInt32(args[i + 1]) * 1000;
                                 break;
                             case "--interface":
-                                Interval = Convert.ToInt32(args[i + 1]) * 1000;
+                                Interface = args[i + 1];
                                 break;
                         }
                     }
@@ -89,8 +88,8 @@ namespace KafkaRESTSimulator
                     Console.WriteLine("Digite o intervalo em segundos entre o envio de mensagens:\n");
                     Interval = Convert.ToInt32(Console.ReadLine()) * 1000;
 
-                    Console.WriteLine("Informe a interface a ser utilizada:\n");
-                    Interface = Console.ReadLine();
+                    //Console.WriteLine("Informe a interface a ser utilizada:\n");
+                    //Interface = Console.ReadLine();
                 }
 
                 if (Interface == "REST")
@@ -100,8 +99,8 @@ namespace KafkaRESTSimulator
 
                     for (int i = 0; i < Iterations; i++)
                     {
-                        var fireAlert = new FireAlert().Json;
-                        var meteorologicalAlert = new MeteorologicalAlert().Json;
+                        var fireAlert = new FireAlert().RestJson;
+                        var meteorologicalAlert = new MeteorologicalAlert().RestJson;
 
                         switch (Option)
                         {
@@ -125,28 +124,29 @@ namespace KafkaRESTSimulator
                 }
                 else
                 {
-                    var FireAlertPublisher = new JsonProducerHelper<Null, string>(KafkaServer, SchemaRegistryUrl);
-                    var MeteorologicalAlertPublisher = new JsonProducerHelper<Null, string>(KafkaServer, SchemaRegistryUrl);
+                    var FireAlertPublisher = new JsonProducerHelper<string, string>(KafkaServer, SchemaRegistryUrl);
+                    var MeteorologicalAlertPublisher = new JsonProducerHelper<string, string>(KafkaServer, SchemaRegistryUrl);
 
                     for (int i = 0; i < Iterations; i++)
                     {
-                        var fireAlert = new FireAlert().Json;
-                        var meteorologicalAlert = new MeteorologicalAlert().Json;
+                        var fireAlertKey = new FireAlert().Key;
+                        var fireAlertValue = new FireAlert().Value;
+                        var meteorologicalAlertKey = new MeteorologicalAlert().Key;
+                        var meteorologicalAlertValue = new MeteorologicalAlert().Value;
 
                         switch (Option)
                         {
                             case 1:
-                                FireAlertPublisher.PublishAsync(null, fireAlert, "Fire-Alerts");
-                                MeteorologicalAlertPublisher.PublishAsync(null, meteorologicalAlert, "Meteorological-Alerts");
-
+                                FireAlertPublisher.PublishAsync(fireAlertKey, fireAlertValue, "Fire-Alerts");
+                                MeteorologicalAlertPublisher.PublishAsync(meteorologicalAlertKey, meteorologicalAlertValue, "Meteorological-Alerts");
                                 break;
+
                             case 2:
-                                MeteorologicalAlertPublisher.PublishAsync(null, meteorologicalAlert, "Meteorological-Alerts");
-
+                                MeteorologicalAlertPublisher.PublishAsync(meteorologicalAlertKey, meteorologicalAlertValue, "Meteorological-Alerts");
                                 break;
-                            case 3:
-                                FireAlertPublisher.PublishAsync(null, fireAlert, "Fire-Alerts");
 
+                            case 3:
+                                FireAlertPublisher.PublishAsync(fireAlertKey, fireAlertValue, "Fire-Alerts");
                                 break;
                         }
 

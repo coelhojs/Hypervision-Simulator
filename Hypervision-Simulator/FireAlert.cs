@@ -9,7 +9,9 @@ namespace Simulator
 {
     public class FireAlert
     {
-        public string Json;
+        public string Key;
+        public string Value;
+        public string RestJson;
 
         private string[] Niveis = new string[] { "Vermelho", "Laranja", "Amarelo", "Verde" };
         private string[] CodigoSAP = new string[] { "DA-L-32647", "DA-L-30814", "DA-L-39667", "DA-L-30719", "DA-L-30981", "DA-L-30357", "DA-L-30702", "T-L-30396", "T-L-30236", "T-L-39477", "DA-L-30723", "DA-L-30602", "T-L-30120", "T-L-30110", "DA-L-30820", "DA-L-30163", "T-L-30289", "T-L-30116", "T-L-30774", "T-L-30769", "DA-L-30441", "DA-L-30747", "DA-L-30689", "DA-L-34602", "DA-L-30622", "DA-L-30567", "DA-L-30678", "DA-L-30299", "DA-L-30714", "DA-L-36503", "DA-L-30777", "T-L-30207", "DA-L-30905", "DA-L-30790", "DA-L-30295", "DA-L-39634", "DA-L-38016", "DA-L-30626", "DA-L-39250", "DA-L-30491" };
@@ -28,28 +30,38 @@ namespace Simulator
         {
             var json = ReadAsJson("Model/FireAlert_v1.json");
 
-            //json["value_schema"] = FireAlert_v1._SCHEMA.ToString();
+            json["key_schema"] = json["key_schema"].ToString();
             json["value_schema"] = json["value_schema"].ToString();
+            //json["value_schema"] = FireAlert_v1._SCHEMA.ToString();
+
+            var alertId = DateTime.Now.Ticks.ToString().Substring(DateTime.Now.Ticks.ToString().Length - 5);
 
             var coordenada = Coordenadas.OrderBy(x => new Random().Next()).Take(1).ToArray();
 
+            var key = (JObject)json["records"][0]["key"];
             var value = (JObject)json["records"][0]["value"];
 
-            value["Id"] = DateTime.Now.Ticks.ToString();
+            key["Id"] = alertId;
+
+            value["Id"] = alertId;
             value["Nivel"] = Niveis[new Random().Next(Niveis.Length - 1)];
             value["DataHora"] = DateTime.Now.ToUniversalTime().ToString("o");
-            value["Regioes"] = string.Join(',', Regioes.OrderBy(x => new Random().Next()).Take(new Random().Next(Regioes.Length - 1)).ToArray());
-            value["Municipios"] = string.Join(',', Municipios.OrderBy(x => new Random().Next()).Take(new Random().Next(Municipios.Length - 1)).ToArray());
-            value["Subestacoes"] = string.Join(',', Subestacoes.OrderBy(x => new Random().Next()).Take(new Random().Next(Subestacoes.Length - 1)).ToArray());
+            value["Regioes"] = string.Join(',', Regioes.OrderBy(x => new Random().Next()).Take(new Random().Next(Regioes.Length > 3 ? 3 : Regioes.Length - 1)).ToArray());
+            value["Municipios"] = string.Join(',', Municipios.OrderBy(x => new Random().Next()).Take(new Random().Next(Municipios.Length > 10 ? 10 : Municipios.Length - 1)).ToArray());
+            value["Subestacoes"] = string.Join(',', Subestacoes.OrderBy(x => new Random().Next()).Take(new Random().Next(Subestacoes.Length > 3 ? 3 : Subestacoes.Length - 1)).ToArray());
             value["Linhas"] = string.Join(',', Linhas.OrderBy(x => new Random().Next()).Take(new Random().Next(Linhas.Length - 1)).ToArray());
             value["Estrutura"] = Estruturas.OrderBy(x => new Random().Next()).ToArray()[0].ToString();
             value["Natureza"] = Natureza.OrderBy(x => new Random().Next()).ToArray()[0].ToString();
+            value["CodigoSAP"] = CodigoSAP.OrderBy(x => new Random().Next()).ToArray()[0].ToString();
             value["ReligamentoEspecial"] = ReligamentoEspecial.OrderBy(x => new Random().Next()).ToArray()[0].ToString();
             value["NivelTensao"] = NivelTensao.OrderBy(x => new Random().Next()).ToArray()[0].ToString();
             value["Longitude"] = coordenada[0][0].ToString();
             value["Latitude"] = coordenada[0][1].ToString();
 
-            Json = JsonConvert.SerializeObject(json);
+            RestJson = JsonConvert.SerializeObject(json);
+
+            Key = JsonConvert.SerializeObject(key);
+            Value = JsonConvert.SerializeObject(value);
         }
 
         private JObject ReadAsJson(string filePath)
