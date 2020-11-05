@@ -45,10 +45,10 @@ namespace Simulator
             value["DataInicio"] = (weatherPrediction).ToUniversalTime().ToString("o");
             //A chuva pode ter duração de 30 minutos ou 4 horas
             value["DataFim"] = (weatherPrediction.AddMinutes(new Random().Next(30, 240))).ToUniversalTime().ToString("o");
-            value["Regioes"] = string.Join(',', Regioes.OrderBy(x => new Random().Next()).Take(new Random().Next(Regioes.Length > 3 ? 3 : Regioes.Length - 1)).ToArray());
-            value["Municipios"] = string.Join(',', Municipios.OrderBy(x => new Random().Next()).Take(new Random().Next(Municipios.Length > 10 ? 10 : Municipios.Length - 1)).ToArray());
-            value["Subestacoes"] = string.Join(',', Subestacoes.OrderBy(x => new Random().Next()).Take(new Random().Next(Subestacoes.Length > 3 ? 3 : Subestacoes.Length - 1)).ToArray());
-            value["Linhas"] = string.Join(',', Linhas.OrderBy(x => new Random().Next()).ToArray().Take(new Random().Next(Linhas.Length - 1)).ToArray());
+            value["Regioes"] = string.Join(',', Regioes.OrderBy(x => new Random().Next()).Take(new Random().Next(1, Regioes.Length > 3 ? 3 : Regioes.Length - 1)).ToArray());
+            value["Municipios"] = string.Join(',', Municipios.OrderBy(x => new Random().Next()).Take(new Random().Next(1, Municipios.Length > 10 ? 10 : Municipios.Length - 1)).ToArray());
+            value["Subestacoes"] = string.Join(',', Subestacoes.OrderBy(x => new Random().Next()).Take(new Random().Next(1, Subestacoes.Length > 3 ? 3 : Subestacoes.Length - 1)).ToArray());
+            value["Linhas"] = string.Join(',', Linhas.OrderBy(x => new Random().Next()).Take(new Random().Next(1, Linhas.Length > 3 ? 3 : Linhas.Length - 1)).ToArray());
             value["Poligono"] = string.Join(',', Poligonos.OrderBy(x => new Random().Next()).ToArray().Take(new Random().Next(Poligonos.Length - 1)).ToArray());
             value["TagAlterado"] = new Random().Next(0, 1).ToString();
             value["TagEnviado"] = new Random().Next(0, 1).ToString();
